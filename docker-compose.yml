@@ -1,0 +1,21 @@
+services:
+  server:
+    build: .
+    image: web-server
+    command: ./server
+    ports:
+      - "8032:8032/udp"
+
+  client:
+    build: .
+    image: web-server
+    command: ./client server 8032
+    stdin_open: true
+    tty: true
+    depends_on:
+      - server
+
+  demo:
+    build: .
+    image: web-server
+    command: ./demo.sh
